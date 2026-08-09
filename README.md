@@ -1,190 +1,152 @@
 <div align="center">
 
-  # 🤖 CortexAIAgent - Multi-Agent Autonomous AI System
+  # 🤖 CortexAI — Production-Grade Microservices Multi-Agent System
 
   <p align="center">
-    <b>A Production-Grade Microservices Architecture powering Multimodal AI Agents</b>
+    <b>A Enterprise-Ready Decoupled Microservices Platform Powering Autonomous Multimodal AI Agents</b>
   </p>
 
-  [![Vercel](https://img.shields.io/badge/Vercel-Live%20Demo-black?style=for-the-badge&logo=vercel)](https://multi-a-gent-system.vercel.app/)
-  [![Docker](https://img.shields.io/badge/Docker-Microservices-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://multiagent-gateway.onrender.com)
-  [![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
+  [![Docker](https://img.shields.io/badge/Docker-Microservices-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://github.com/mayanktrivedi05/MultiAGent-System)
   [![NodeJS](https://img.shields.io/badge/Node.js-Express-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
   [![Redis](https://img.shields.io/badge/Redis-Upstash-DC382D?style=for-the-badge&logo=redis&logoColor=white)](https://upstash.com/)
+  [![LangChain](https://img.shields.io/badge/LangChain-LangGraph-1C3C3C?style=for-the-badge&logo=langchain&logoColor=white)](https://www.langchain.com/)
+  [![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
   [![License](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 
 </div>
 
 ---
 
-## 🌟 Overview
+## 🌟 Architecture Overview
 
-**CortexAIAgent** is an advanced, enterprise-ready Multi-Agent Autonomous AI platform built on a scalable **Event-Driven Microservices Architecture**. It decouples frontend operations from heavy AI workflows, leveraging LangChain, Qdrant Vector Search, and state-of-the-art LLMs (Groq, Google Gemini, OpenRouter) to deliver real-time multimodal intelligence.
+**CortexAI** is an advanced, enterprise-grade AI Platform designed with a decoupled **Event-Driven Microservices Architecture**. 
 
-## 🚀 Live Production Endpoints
-
-| Service / Component | Hosting Platform | Deployed Live URL | Status |
-| --- | --- | --- | --- |
-| **Frontend Web App** | Vercel | [https://multi-a-gent-system.vercel.app/](https://multi-a-gent-system.vercel.app/) | `Live` 🟢 |
-| **API Gateway** | Render | [https://multiagent-gateway.onrender.com](https://multiagent-gateway.onrender.com) | `Live` 🟢 |
-| **Auth Microservice** | Render | `https://multiagent-auth.onrender.com` | `Live` 🟢 |
-| **Chat Microservice** | Render | `https://multiagent-chat.onrender.com` | `Live` 🟢 |
-| **AI Agent Microservice** | Render | `https://multiagent-agent.onrender.com` | `Live` 🟢 |
-| **Billing Microservice** | Render | `https://multiagent-billing.onrender.com` | `Live` 🟢 |
-| **Cloud Redis Database** | Upstash | `rediss://cool-piranha-73914.upstash.io` | `Live` 🟢 |
+Instead of relying on a monolithic backend, CortexAI distributes core business capabilities across an **API Gateway** and **4 independent Microservices** (`Auth`, `Chat`, `Agent`, `Billing`). This ensures high scalability, fault tolerance, low latency session recovery using **Redis**, and specialized vector-augmented generation via **Qdrant Vector Database**.
 
 ---
 
-## 🔥 Key Features & AI Agents
-
-### 🧠 Specialized Autonomous Agents
-1. **👁️ Vision Agent:** Analyzes image inputs, detects objects, and performs optical reasoning using vision LLMs.
-2. **📄 PDF RAG Agent:** Implements Retrieval-Augmented Generation over uploaded PDF documents via **Qdrant Vector Database**.
-3. **🌐 Web Search Agent:** Real-time web search and live internet grounding using Tavily AI API.
-4. **📊 PPT Generator Agent:** Automatically crafts structured presentation decks based on user prompts.
-5. **💻 Coding Assistant:** Writes, refactors, and debugs code across multiple programming languages.
-
-### ⚙️ System Capabilities
-- **Decoupled Microservices:** API Gateway routing requests to 4 independent backend microservices.
-- **Low-Latency Session Caching:** Powered by **Upstash Redis** for fast multi-turn conversation memory recovery.
-- **Fail-Safe Auth & Payments:** Firebase Authentication + Razorpay Payment Gateway integration with dynamic user credit deduction.
-- **Full Containerization:** Dockerized services with single-command `docker compose` deployment.
-
----
-
-## 🏗 System Architecture
+## 🏗️ System Architecture & Microservices Breakdown
 
 ```mermaid
 graph TD
-    Client["🌐 Frontend (React + Vite SPA on Vercel)"] -->|HTTPS / Cookies| Gateway["⚡ API Gateway (Express Proxy - Port 8000)"]
+    Client["🌐 Client SPA (React 19 + Redux Toolkit)"] -->|HTTPS / Cross-Domain Cookies| Gateway["⚡ Central API Gateway (Port 8000)"]
     
-    Gateway -->|/api/auth| Auth["🔐 Auth Service (Port 8001)"]
-    Gateway -->|/api/chat| Chat["💬 Chat Service (Port 8002)"]
-    Gateway -->|/api/agent| Agent["🤖 Agent Service (Port 8003)"]
-    Gateway -->|/api/billing| Billing["💳 Billing Service (Port 8004)"]
+    Gateway -->|/api/auth| Auth["🔐 Auth Microservice (Port 8001)"]
+    Gateway -->|/api/chat| Chat["💬 Chat Microservice (Port 8002)"]
+    Gateway -->|/api/agent| Agent["🤖 Agent Microservice (Port 8003)"]
+    Gateway -->|/api/billing| Billing["💳 Billing Microservice (Port 8004)"]
 
-    Agent -->|RAG Vector Search| Qdrant["🔍 Qdrant Vector DB"]
-    Agent -->|File Storage| S3["📁 AWS S3 Bucket"]
-    Agent -->|LLM Queries| LLM["🧠 LLMs (Groq / Gemini / OpenRouter)"]
+    Agent -->|Vector Search| Qdrant["🔍 Qdrant Cloud Vector DB"]
+    Agent -->|Document Storage| S3["📁 AWS S3 Bucket"]
+    Agent -->|LLM Reasoning| LLM["🧠 LLMs (Groq / Gemini / OpenRouter)"]
     
-    Auth & Chat & Agent & Billing -->|Pub/Sub & Caching| Redis[("⚡ Upstash Redis")]
-    Auth & Chat & Billing -->|Persistent Data| Mongo[("🍃 MongoDB Atlas")]
+    Auth & Chat & Agent & Billing -->|Session Caching| Redis[("⚡ Upstash Redis Cache")]
+    Auth & Chat & Billing -->|Data Persistence| Mongo[("🍃 MongoDB Atlas")]
 ```
 
----
+### 🧩 Microservices Directory & Responsibilities
 
-## 🛠 Tech Stack
-
-| Domain | Technologies |
-| --- | --- |
-| **Frontend** | React 19, Vite, Redux Toolkit, TailwindCSS, Monaco Editor, Motion, Lucide Icons |
-| **Backend & Microservices** | Node.js, Express.js, Express HTTP Proxy, Morgan, Cookie-Parser |
-| **Databases & Cache** | MongoDB Atlas, Qdrant Cloud Vector DB, Upstash Redis |
-| **AI Framework & APIs** | LangGraph, LangChain, Groq API, Google Gemini AI, OpenRouter, Tavily Web Search |
-| **Storage & Auth** | AWS S3 (SDK v3), Firebase Authentication, Razorpay Payments |
-| **DevOps & Infrastructure** | Docker, Docker Compose, Nginx Reverse Proxy, Vercel, Render PaaS |
+| Service | Port | Primary Responsibility | Key Technologies |
+| :--- | :--- | :--- | :--- |
+| **API Gateway** | `8000` | Reverse Proxy Routing, CORS Preflight, Auth Guards, Rate Limiting | Express, Express HTTP Proxy, Cookie-Parser |
+| **Auth Service** | `8001` | Firebase Token Verification, User Sessions, Credit Deduction | Firebase Admin SDK, Redis, Mongoose |
+| **Chat Service** | `8002` | Conversation Management, Message History Persistence | MongoDB Atlas, Mongoose |
+| **AI Agent Service** | `8003` | LangGraph Autonomous Execution, RAG Pipeline, Vision Reasoning | LangGraph, Qdrant, Tavily, AWS S3 |
+| **Billing Service** | `8004` | Order Generation, Subscription Webhooks, Payment Verification | Razorpay API, Mongoose |
 
 ---
 
-## 📁 Repository Structure
+## 🔥 Specialized Autonomous AI Agents
 
-```text
-MultiAgentSystem/
-├── frontend/                # React 19 + Vite Web Application
-│   ├── public/              # Icons, Favicons, Static Assets
-│   ├── src/                 # Redux Slices, UI Components, Pages
-│   └── utils/               # Axios Client Configuration
-├── backend/                 # Microservices Core
-│   ├── gateway/             # Central API Proxy Gateway (Port 8000)
-│   ├── shared/              # Shared Redis & Database Utilities
-│   └── services/            # Decoupled Services
-│       ├── agent/           # LangChain AI Graph Agents (Vision, RAG, PPT, Search)
-│       ├── auth/            # Firebase User Auth & Credits Manager
-│       ├── chat/            # Conversation History & Message Store
-│       └── billing/         # Razorpay Orders & Subscription Handling
-├── docker-compose.yml       # Production Multi-Container Manifest
-├── DEPLOYMENT.md            # Comprehensive Production Deployment Manual
-└── README.md                # System Documentation
-```
+1. **👁️ Vision Reasoning Agent:** Optical object detection, diagram analysis, and image reasoning powered by Vision LLMs.
+2. **📄 PDF RAG Agent:** Semantic Retrieval-Augmented Generation over uploaded PDF documents using **Qdrant Vector DB** and embeddings.
+3. **🌐 Internet Search Agent:** Real-time web search grounding and live source citation using **Tavily Search API**.
+4. **📊 PPT Deck Generator Agent:** Automated presentation structure and slide deck generation from natural language prompts.
+5. **💻 Autonomous Coding Assistant:** Multi-language code generation, refactoring, and automated debugging.
 
 ---
 
-## 🚀 Quick Start (Local Development)
+## 🛠️ Tech Stack & Engineering Specifications
+
+- **Frontend:** React 19, Vite, Redux Toolkit, TailwindCSS, Lucide Icons, Framer Motion
+- **Microservices Engine:** Node.js, Express.js, Express-HTTP-Proxy
+- **Database & Cache Layer:** MongoDB Atlas (Persistent Store), Upstash Redis (Session & State Cache), Qdrant Cloud (Vector DB)
+- **AI Infrastructure:** LangChain, LangGraph StateGraph, Google Gemini AI, Groq (Llama 3), OpenRouter API, Tavily Web Search
+- **Storage & Security:** AWS S3 (AWS SDK v3), Firebase Admin Auth, Razorpay Payment Gateway
+- **DevOps & Orchestration:** Docker, Docker Compose, Nginx
+
+---
+
+## 🐳 Quick Start (Local Multi-Container Setup)
 
 ### Prerequisites
 - [Node.js v18+](https://nodejs.org/)
 - [Docker & Docker Compose](https://www.docker.com/)
-- [MongoDB Atlas Account](https://www.mongodb.com/cloud/atlas)
 
-### 1. Clone the Repository
+### 1. Clone Repository & Setup Environment
 ```bash
-git clone https://github.com/YOUR_GITHUB_USERNAME/MultiAgentSystem.git
-cd MultiAgentSystem
+git clone https://github.com/mayanktrivedi05/MultiAGent-System.git
+cd MultiAGent-System
+cp backend/.env.example backend/.env
 ```
 
-### 2. Configure Environment Variables
-Copy `.env.example` to `.env` in the root and fill in your keys:
-```bash
-cp .env.example .env
-```
-
-### 3. Run via Docker Compose (Recommended)
-Launch all 5 microservices and Redis simultaneously:
+### 2. Launch All Microservices with Docker Compose
+Run the multi-container orchestration with a single command:
 ```bash
 docker compose up -d --build
 ```
-Check running services:
+
+Verify all running container instances:
 ```bash
 docker compose ps
 ```
 
-### 4. Run Frontend Locally
+### 3. Launch Frontend Client
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
-Open `http://localhost:5173` in your browser!
+Open [http://localhost:5173](http://localhost:5173) in your browser.
 
 ---
 
-## 🔐 Environment Variables Reference
+## 🔐 Environment Variables Configuration
+
+Create a `.env` file inside `backend/` with the following schema:
 
 ```env
-# Server Config
-FRONTEND_URL=https://multi-a-gent-system.vercel.app
+PORT=8000
+MONGODB_URL=mongodb+srv://<username>:<password>@cluster.mongodb.net/cortexai
+REDIS_URL=redis://localhost:6379
+FRONTEND_URL=http://localhost:5173
 
-# Database & Cache
-MONGODB_URL=mongodb+srv://<username>:<password>@cluster.mongodb.net/agent
-REDIS_URL=rediss://default:<password>@cluster.upstash.io:6379
-
-# AI & LLM Keys
+# AI & LLM Providers
 GROQ_API_KEY=gsk_...
-GOOGLE_API_KEY=AQ....
-OPENROUTER_API_KEY=sk-or-v1-...
+GOOGLE_API_KEY=AQ...
 TAVILY_API_KEY=tvly-...
-
-# Vector DB & Storage
-QDRANT_URL=https://<cluster-id>.qdrant.io
+OPENROUTER_API_KEY=sk-or-v1-...
 QDRANT_API_KEY=eyJhbGci...
+QDRANT_URL=https://<cluster-id>.qdrant.io
+
+# Cloud Storage
 AWS_REGION=ap-southeast-2
 AWS_ACCESS_KEY_ID=AKIA...
 AWS_SECRET_KEY=...
 AWS_BUCKET_NAME=cortex-ai-agent
 
 # Payments & Auth
-FIREBASE_SERVICE_ACCOUNT={"type":"service_account",...}
 RAZORPAY_KEY_ID=rzp_test_...
 RAZORPAY_KEY_SECRET=...
 ```
 
 ---
 
-## 🤝 Contributing
+## 🤝 Contributing & License
 
-Contributions are welcome! Feel free to open an Issue or submit a Pull Request to enhance AI Agents, add vector index strategies, or optimize service pipelines.
+Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/mayanktrivedi05/MultiAGent-System/issues).
 
----
+Distributed under the MIT License. See `LICENSE` for more information.
 
 <div align="center">
   Crafted with ❤️ by <b>Mayank Trivedi</b>
