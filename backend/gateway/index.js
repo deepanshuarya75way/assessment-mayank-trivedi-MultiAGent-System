@@ -1,0 +1,88 @@
+import express from "express";
+import dotenv from "dotenv";
+import proxy from "express-http-proxy";
+import morgan from "morgan";
+import cors from "cors";
+import cookieParser from "cookie-parser";
+import protect from "./middleware/auth.middleware.js";
+import getCurrentUser from "./controller/user.controller.js";
+
+dotenv.config();
+const port = process.env.PORT || 8000;
+const app = express();
+
+const AUTH_SERVICE = process.env.AUTH_SERVICE || "https://multiagent-auth.onrender.com";
+const CHAT_SERVICE = process.env.CHAT_SERVICE || "https://multiagent-chat.onrender.com";
+const AGENT_SERVICE = process.env.AGENT_SERVICE || "https://multiagent-agent.onrender.com";
+const BILLING_SERVICE = process.env.BILLING_SERVICE || "https://multiagent-billing.onrender.com";
+
+const rawFrontendUrl = process.env.FRONTEND_URL || "https://multi-a-gent-system.vercel.app";
+const frontendOrigin = rawFrontendUrl.replace(/\/$/, "");
+
+const corsOptions = {
+    origin: (origin, callback) => {
+        if (!origin || origin.includes("vercel.app") || origin.includes("localhost") || origin === frontendOrigin) {
+            callback(null, true);
+        } else {
+            callback(null, true);
+        }
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "x-user-id", "Cookie"]
+};
+
+app.use(cors(corsOptions));
+app.options(/(.*)/, cors(corsOptions));
+
+app.use(morgan("dev"));
+app.use(cookieParser());
+
+const filterOptions = (req) => req.method !== 'OPTIONS';
+
+const createServiceProxy = (targetUrl) => proxy(targetUrl, {
+    filter: filterOptions,
+    limit: "50mb",
+    timeout: 60000,
+    proxyErrorHandler: (err, res, next) => {
+        console.error("Gateway proxy error to", targetUrl, ":", err.message);
+        return res.status(503).json({ message: "Service is starting up, please try again in a few seconds." });
+    }
+});
+
+const proxyWithHeader = (targetUrl) => proxy(targetUrl, {
+    filter: filterOptions,
+    limit: "50mb",
+    timeout: 60000,
+    proxyReqOptDecorator: (proxyReqOpts, srcReq) => {
+        if (srcReq.user) {
+            proxyReqOpts.headers["x-user-id"] = srcReq.user.userId;
+        }
+        return proxyReqOpts;
+    },
+    proxyErrorHandler: (err, res, next) => {
+        console.error("Proxy error to", targetUrl, ":", err.message);
+        return res.status(503).json({ message: "Service is starting up, please try again in a few seconds." });
+    }
+});
+
+app.use('/api/auth', createServiceProxy(AUTH_SERVICE));
+app.use('/api/chat', protect, proxyWithHeader(CHAT_SERVICE));
+app.use('/api/agent', protect, proxyWithHeader(AGENT_SERVICE));
+app.use('/api/billing', protect, proxyWithHeader(BILLING_SERVICE));
+app.get("/api/me", protect, getCurrentUser);
+app.get("/", (req, res) => {
+    res.send("hello from gateway");
+});
+
+process.on("unhandledRejection", (reason, promise) => {
+    console.error("Gateway Unhandled Rejection at:", promise, "reason:", reason);
+});
+
+process.on("uncaughtException", (err) => {
+    console.error("Gateway Uncaught Exception:", err.message);
+});
+
+app.listen(port, () => {
+    console.log(`server is running on port ${port}`);
+});
