@@ -3,7 +3,7 @@
   # 🤖 CortexAI — Production-Grade Microservices Multi-Agent System
 
   <p align="center">
-    <b>A Enterprise-Ready Decoupled Microservices Platform Powering Autonomous Multimodal AI Agents</b>
+    <b>An Enterprise-Ready Decoupled Microservices Platform Powering Autonomous Multimodal AI Agents</b>
   </p>
 
   [![Docker](https://img.shields.io/badge/Docker-Microservices-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://github.com/mayanktrivedi05/MultiAGent-System)
@@ -22,6 +22,45 @@
 **CortexAI** is an advanced, enterprise-grade AI Platform designed with a decoupled **Event-Driven Microservices Architecture**. 
 
 Instead of relying on a monolithic backend, CortexAI distributes core business capabilities across an **API Gateway** and **4 independent Microservices** (`Auth`, `Chat`, `Agent`, `Billing`). This ensures high scalability, fault tolerance, low latency session recovery using **Redis**, and specialized vector-augmented generation via **Qdrant Vector Database**.
+
+---
+
+## 📸 Application Previews & UI Feature Showcase
+
+<div align="center">
+
+### 💻 Coding Assistant & Live Sandbox Sandbox Preview
+<table>
+  <tr>
+    <td width="50%">
+      <img src="./docs/images/code_assistant_editor.png" alt="Coding Assistant Editor" />
+      <p align="center"><b>Multi-file Code Generation & Built-in Editor</b></p>
+    </td>
+    <td width="50%">
+      <img src="./docs/images/code_live_preview.png" alt="Live Sandbox Preview" />
+      <p align="center"><b>Real-time Interactive HTML/JS Sandbox Execution</b></p>
+    </td>
+  </tr>
+</table>
+
+### 📄 Document RAG & Presentation Generator Agents
+<table>
+  <tr>
+    <td width="50%">
+      <img src="./docs/images/pdf_generator_agent.png" alt="PDF Generation Agent" />
+      <p align="center"><b>PDF Agent (Vector RAG Search & PDF Build)</b></p>
+    </td>
+    <td width="50%">
+      <img src="./docs/images/ppt_pdf_agent_demo.png" alt="PPT Deck Generator" />
+      <p align="center"><b>Automated Presentation Deck Generation & Export</b></p>
+    </td>
+  </tr>
+</table>
+
+### 💳 Credit Deduction & Billing Drawer
+<img src="./docs/images/billing_plans_credits.png" alt="Billing & Credit Deductions" width="850" />
+
+</div>
 
 ---
 
@@ -62,7 +101,7 @@ graph TD
 2. **📄 PDF RAG Agent:** Semantic Retrieval-Augmented Generation over uploaded PDF documents using **Qdrant Vector DB** and embeddings.
 3. **🌐 Internet Search Agent:** Real-time web search grounding and live source citation using **Tavily Search API**.
 4. **📊 PPT Deck Generator Agent:** Automated presentation structure and slide deck generation from natural language prompts.
-5. **💻 Autonomous Coding Assistant:** Multi-language code generation, refactoring, and automated debugging.
+5. **💻 Autonomous Coding Assistant:** Multi-language code generation, refactoring, and automated debugging with live preview.
 
 ---
 
