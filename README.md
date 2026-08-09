@@ -29,7 +29,15 @@ Instead of relying on a monolithic backend, CortexAI distributes core business c
 
 <div align="center">
 
-### 💻 Coding Assistant & Live Sandbox Sandbox Preview
+### 🖥️ Decoupled Microservices Execution & Gateway Routing Logs
+<img src="./docs/images/microservices_terminal_logs.png" alt="Microservices Terminal Execution Logs" width="950" />
+<p align="center"><b>Live IDE setup showing 5 decoupled Microservices (Gateway, Auth, Billing, Agent, Chat) executing simultaneously with 200 OK Gateway routing logs</b></p>
+
+### 📄 Semantic Document RAG & PDF Analysis Agent
+<img src="./docs/images/pdf_analysis_agent.png" alt="PDF RAG Analysis Agent" width="950" />
+<p align="center"><b>Document Chunking, Vector Embeddings Search & LangGraph RAG Answer Generation</b></p>
+
+### 💻 Coding Assistant & Live Sandbox Preview
 <table>
   <tr>
     <td width="50%">
@@ -43,7 +51,7 @@ Instead of relying on a monolithic backend, CortexAI distributes core business c
   </tr>
 </table>
 
-### 📄 Document RAG & Presentation Generator Agents
+### 📄 PDF & Presentation Generator Agents
 <table>
   <tr>
     <td width="50%">
@@ -57,8 +65,19 @@ Instead of relying on a monolithic backend, CortexAI distributes core business c
   </tr>
 </table>
 
-### 💳 Credit Deduction & Billing Drawer
-<img src="./docs/images/billing_plans_credits.png" alt="Billing & Credit Deductions" width="850" />
+### 💳 Credit Deduction & Razorpay Subscription Payment Microservice
+<table>
+  <tr>
+    <td width="50%">
+      <img src="./docs/images/billing_plans_credits.png" alt="Billing Drawer & Credit Management" />
+      <p align="center"><b>Credits Tracking, Plan Expiration & Subscription Drawer</b></p>
+    </td>
+    <td width="50%">
+      <img src="./docs/images/razorpay_payment_checkout.png" alt="Razorpay Checkout Integration" />
+      <p align="center"><b>Razorpay Payment Gateway Checkout & Order Verification</b></p>
+    </td>
+  </tr>
+</table>
 
 </div>
 
@@ -97,8 +116,8 @@ graph TD
 
 ## 🔥 Specialized Autonomous AI Agents
 
-1. **👁️ Vision Reasoning Agent:** Optical object detection, diagram analysis, and image reasoning powered by Vision LLMs.
-2. **📄 PDF RAG Agent:** Semantic Retrieval-Augmented Generation over uploaded PDF documents using **Qdrant Vector DB** and embeddings.
+1. **📄 PDF Analysis & RAG Agent:** Automated PDF processing, document chunking, Qdrant vector search, and semantic RAG answer synthesis using **LangChain & LangGraph**.
+2. **👁️ Vision Reasoning Agent:** Optical object detection, diagram analysis, and image reasoning powered by Vision LLMs.
 3. **🌐 Internet Search Agent:** Real-time web search grounding and live source citation using **Tavily Search API**.
 4. **📊 PPT Deck Generator Agent:** Automated presentation structure and slide deck generation from natural language prompts.
 5. **💻 Autonomous Coding Assistant:** Multi-language code generation, refactoring, and automated debugging with live preview.
