@@ -23,7 +23,7 @@ export const pdfRag = async (state) => {
         const docs = await splitter.createDocuments([text])
         const collectionName = `pdf-${Date.now()}`
         const store = await vectorStore(docs, collectionName)
-        const relevantDocs = await store.similaritySearch(state.prompt, 5)
+        const relevantDocs = await store.hybridSearch(state.prompt, 5)
         const context = relevantDocs.map(doc => doc.pageContent).join("\n\n")
         const llm = await getModel("pdfRag")
         const messages = [

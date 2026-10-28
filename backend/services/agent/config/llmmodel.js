@@ -4,7 +4,7 @@ import { ChatOpenRouter } from "@langchain/openrouter";
 import dotenv from 'dotenv'
 dotenv.config()
 const groq = new ChatGroq({
-    model: "llama-3.3-70b-versatile",
+    model: "llama-3.1-8b-instant",
     apiKey: process.env.GROQ_API_KEY,
 
 })
